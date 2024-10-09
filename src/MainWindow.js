@@ -17,12 +17,12 @@ const MainWindow = ({items, selectItem, setSelectItem}) => {
             const interval = setInterval(getItem, 150);
             setIntervalReference(interval);
         }
-    }, [selectItem]);
+    }, [selectItem, spinAgain]);
 
     const getItem = () => {
         if (spinAgain && numSpins < maxSpins) {
             let randomIndex = getRandomIndex(items.length);
-            if (randomIndex == selectedIndex) { randomIndex ++; }
+            if (randomIndex === selectedIndex) { randomIndex ++; }
 
             setSelectedIndex(randomIndex);
             numSpins ++;

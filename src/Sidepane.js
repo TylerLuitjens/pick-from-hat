@@ -1,13 +1,10 @@
-import React from "react";
-import { useForm } from "react-hook-form"
+import React, {useState} from "react";
 import { TextField, Button } from "@mui/material";
 import { Row, Column } from "./StyledComponents";
 import { Delete } from "@mui/icons-material";
 
 const Sidepane = ({ items, setItems, setSelectItem }) => {
-    const getFormData = () => {
-        return { itemToAdd: "" }
-    };
+    const [itemToAdd, setItemToAdd] = useState("");
 
     const toTitleCase = (str) => {
         return str.replace(
@@ -16,21 +13,29 @@ const Sidepane = ({ items, setItems, setSelectItem }) => {
         );
     };
 
-    const { register, setValue, getValues } = useForm({ defaultValues: getFormData() });
     const addItem = (item) => {
         if (item !== "" && !items.includes(toTitleCase(item))) {
             setItems([...items, toTitleCase(item)]);
         }
 
-        setValue("itemToAdd", "");
+        setItemToAdd("");
     }
 
     const handleDelete = (idx) => {
-        const firstHalf = items.splice(0, idx);
-        const secondHalf = items.splice(idx, items.length);
+        
+        const firstHalf = idx !== 0 ? items.slice(0, idx) : [];
+        const secondHalf = idx !== items.length - 1 ? items.slice(idx + 1, items.length) : [];
         setItems([...firstHalf, ...secondHalf]);
     };
 
+    const handleTextChange = (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            addItem(itemToAdd);
+        } else {
+            setItemToAdd(event.target.value);
+        }
+    }
     const triggerItemSelect = () => { setSelectItem(true); };
 
     return (
@@ -46,10 +51,10 @@ const Sidepane = ({ items, setItems, setSelectItem }) => {
             </Column>
             <Row justifyContent="flex-end" alignItems="flex-end" height="10%">
                 <Column width="60%" >
-                    <TextField variant="outlined" size="small" id="item-text-field" label="Add item" {...register('itemToAdd')} />
+                    <TextField variant="outlined" size="small" id="item-text-field" label="Add item" value={itemToAdd} onKeyUp={handleTextChange} onChange={handleTextChange}/>
                 </Column>
                 <Column width="20%" margin="0px 5px 0px 5px">
-                    <Button variant="contained" color="primary" onClick={() => addItem(getValues("itemToAdd"))}>Add</Button>
+                    <Button variant="contained" color="primary" onClick={() => addItem(itemToAdd)}>Add</Button>
                 </Column>
                 <Column width="20%">
                     <Button variant="contained" color="success" onClick={triggerItemSelect}>Pick Item</Button>
