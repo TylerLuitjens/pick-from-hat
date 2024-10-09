@@ -46,7 +46,7 @@ const Sidepane = ({ items, setItems, setSelectItem }) => {
                     return (
                         <tr key={idx}>
                             <Row justifyContent="flex-start">
-                                <Button size="small" onClick={() => handleDelete(idx)}><Delete /></Button>
+                                <Button color="error" size="small" onClick={() => handleDelete(idx)}><Delete /></Button>
                                 <ListItem>{item}</ListItem>
                             </Row>
                         </tr>
