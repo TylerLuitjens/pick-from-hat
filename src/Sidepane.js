@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { TextField, Button } from "@mui/material";
-import { Row, Column } from "./StyledComponents";
+import { Row, Column, ListItem } from "./StyledComponents";
 import { Delete } from "@mui/icons-material";
 
 const Sidepane = ({ items, setItems, setSelectItem }) => {
@@ -41,13 +41,19 @@ const Sidepane = ({ items, setItems, setSelectItem }) => {
     return (
         <Column height="100%" justifyContent="flex-start" margin="10px 15px 0px 15px">
             <Column height="80%" >
+            <table>
                 {items?.map((item, idx) => {
                     return (
-                        <Row item key={idx} height="5%">
-                            {item} <Button size="small" onClick={() => handleDelete(idx)}><Delete /></Button>
-                        </Row>
+                        <tr key={idx}>
+                            <Row justifyContent="flex-start">
+                                <Button size="small" onClick={() => handleDelete(idx)}><Delete /></Button>
+                                <ListItem>{item}</ListItem>
+                            </Row>
+                        </tr>
                     );
                 })}
+            </table>
+
             </Column>
             <Row justifyContent="flex-end" alignItems="flex-end" height="10%">
                 <Column width="60%" >

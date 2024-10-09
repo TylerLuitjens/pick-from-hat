@@ -36,3 +36,8 @@ export const LinearGradientDivSeparator = styled.div`
     background-image: -o-linear-gradient(rgba(255, 255, 255, 0), #c8c6ae 25%, #c8c6ae 85%, rgba(255, 255, 255, 0));
     background-image: linear-gradient(rgba(255, 255, 255, 0), #c8c6ae 25%, #c8c6ae 85%, rgba(255, 255, 255, 0));
   `;
+
+  export const ListItem = styled.div`
+    display: flex;
+    padding-top: 5px;
+  `;
